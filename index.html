@@ -4,9 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ICT Explained: How Computers, Networks and Data Work</title>
-<meta name="description" content="A clear guide to Information and Communication Technology: hardware, software, networks, databases, cybersecurity and cloud.">
+<meta name="description" content="A clear, interactive guide to Information and Communication Technology: hardware, software, networks, databases, cybersecurity, and cloud computing.">
+
+<!-- Google Search Console Verification Placeholder -->
+<meta name="google-site-verification" content="YOUR_GSC_VERIFICATION_CODE_HERE">
+
+<!-- Open Graph / Social Media Meta Tags -->
+<meta property="og:title" content="ICT Explained: How Computers, Networks and Data Work">
+<meta property="og:description" content="Explore hardware, software, networks, cybersecurity, and test your knowledge with interactive quizzes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yourusername.github.io/repository-name/">
+
+<!-- Fonts & Stylesheets -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap">
+
+<!-- Structured Data (JSON-LD for SEO) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "ICT Explained",
+  "description": "An educational guide to Information and Communication Technology concepts.",
+  "url": "https://yourusername.github.io/repository-name/"
+}
+</script>
+
 <style>
 /* ===== THEME: edit these values to restyle the whole site ===== */
 :root{
@@ -49,7 +72,7 @@ nav ul{display:flex;gap:1.25rem;list-style:none;margin:0;padding:0;flex-wrap:wra
 nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:.25rem 0;border-bottom:2px solid transparent}
 nav a:hover{border-color:var(--blue)}
 
-/* Hero: the memorable moment is the live binary converter */
+/* Hero */
 .hero{padding:4rem 0 3rem}
 .hero h1{font-size:clamp(2.4rem,7vw,4.75rem);font-weight:800;max-width:15ch;letter-spacing:-.02em}
 .hero p.lead{max-width:38rem;color:var(--muted);font-size:1.2rem;margin:1.25rem 0 2rem}
@@ -75,7 +98,7 @@ section>.wrap>p.intro{max-width:40rem;color:var(--muted);margin:0 0 2rem}
 .topic p{margin:0;max-width:34rem}
 .topic .eg{display:block;margin-top:.4rem;color:var(--muted);font-size:.95rem}
 
-/* Data journey: a real sequence, so it is numbered */
+/* Journey */
 .journey{list-style:none;counter-reset:s;margin:0;padding:0;display:grid;gap:0;max-width:44rem}
 .journey li{counter-increment:s;display:grid;grid-template-columns:2.5rem 1fr;gap:1rem;padding-bottom:1.5rem;position:relative}
 .journey li::before{content:counter(s);width:2.5rem;height:2.5rem;border-radius:50%;background:var(--blue);color:var(--on-blue);display:grid;place-items:center;font:700 1.1rem var(--font-head);z-index:1}
@@ -92,7 +115,7 @@ details p{margin:0 0 1rem;color:var(--muted)}
 
 footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted);font-size:.95rem}
 
-/* Pages: only the view matching the URL hash (#hardware etc.) is shown */
+/* Views router */
 .view{display:none}.view.active{display:block}
 nav a[aria-current="page"]{border-color:var(--blue)}
 .page-head{padding:3.5rem 1.25rem 1.5rem}
@@ -259,13 +282,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
 
 <footer>
   <div class="wrap">
-    <span>Made by [Your Name], HND Information Technology</span>
-    <span>ICT module project</span>
+    <span>W.A.J.M Siriwardhana | Registration: Kur-IT-2026-F-0004</span>
+    <span>HND Information Technology Module Project</span>
   </div>
 </footer>
 
 <script>
-/* Binary converter: turns typed text into bytes. Uses textContent, so input is never run as HTML. */
+/* Binary converter */
 (function(){
   var input=document.getElementById("txt"), out=document.getElementById("bytes");
   function draw(){
@@ -286,7 +309,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
   input.addEventListener("input",draw);draw();
 })();
 
-/* Page router: shows the view named in the URL hash (#hardware, #quiz ...). Unknown hash = home. */
+/* Page router */
 (function(){
   var views=["home","hardware","networks","security","quiz"];
   var names={home:"ICT Explained: How Computers, Networks and Data Work",hardware:"Hardware | ICT Explained",networks:"Networks | ICT Explained",security:"Cybersecurity | ICT Explained",quiz:"Quiz | ICT Explained"};
@@ -301,7 +324,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
   window.addEventListener("hashchange",route);route();
 })();
 
-/* Quiz: edit the questions here. a = index of the correct option (starts at 0). */
+/* Quiz */
 (function(){
   var Q=[
     {q:"How many bits are in one byte?",o:["4","8","16"],a:1},
