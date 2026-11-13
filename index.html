@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ICT Explained: How Computers, Networks and Data Work</title>
+<meta name="description" content="A clear guide to Information and Communication Technology: hardware, software, networks, databases, cybersecurity and cloud.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* ===== THEME: edit these values to restyle the whole site ===== */
+:root{
+  --bg:#EEF2F6; --surface:#FFFFFF; --ink:#13202E; --muted:#4B5B6B;
+  --line:#C9D3DE; --blue:#1D4ED8; --on-blue:#FFFFFF; --amber:#B45309; --bit-on:#1D4ED8; --bit-off:#DCE3EB;
+  --font-head:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --font-body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  --max:70rem;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1720; --surface:#17222E; --ink:#E7EDF3; --muted:#9FB0C0;
+    --line:#2A3947; --blue:#6E9BFF; --on-blue:#0F1720; --amber:#F6B04C; --bit-on:#6E9BFF; --bit-off:#26343F;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1720; --surface:#17222E; --ink:#E7EDF3; --muted:#9FB0C0;
+  --line:#2A3947; --blue:#6E9BFF; --on-blue:#0F1720; --amber:#F6B04C; --bit-on:#6E9BFF; --bit-off:#26343F;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 4.5rem);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.65 var(--font-body)}
+h1,h2,h3{font-family:var(--font-head);line-height:1.1;margin:0}
+a{color:var(--blue)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:4px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 1.25rem}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+
+/* Header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:3.5rem;flex-wrap:wrap}
+.brand{font:800 1.25rem var(--font-head);text-decoration:none;color:var(--ink)}
+nav ul{display:flex;gap:1.25rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav a{color:var(--ink);text-decoration:none;font-weight:500;padding:.25rem 0;border-bottom:2px solid transparent}
+nav a:hover{border-color:var(--blue)}
+
+/* Hero: the memorable moment is the live binary converter */
+.hero{padding:4rem 0 3rem}
+.hero h1{font-size:clamp(2.4rem,7vw,4.75rem);font-weight:800;max-width:15ch;letter-spacing:-.02em}
+.hero p.lead{max-width:38rem;color:var(--muted);font-size:1.2rem;margin:1.25rem 0 2rem}
+.lab{background:var(--surface);border:2px solid var(--ink);border-radius:.5rem;padding:1.25rem;max-width:44rem}
+.lab label{display:block;font-weight:500;margin-bottom:.5rem}
+.lab input{width:100%;font:500 1.25rem var(--font-mono);padding:.7rem .85rem;border:2px solid var(--line);border-radius:.375rem;background:var(--bg);color:var(--ink)}
+.lab input:focus{border-color:var(--blue);outline:none}
+.bytes{display:flex;flex-wrap:wrap;gap:.9rem;margin:1.1rem 0 .25rem;min-height:4.5rem}
+.byte{display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.byte .bits{display:flex;gap:3px}
+.bit{width:1.15rem;height:1.6rem;display:grid;place-items:center;font:500 .8rem var(--font-mono);border-radius:3px;background:var(--bit-off);color:var(--muted)}
+.bit.on{background:var(--bit-on);color:var(--on-blue)}
+.byte .ch{font:500 .85rem var(--font-mono);color:var(--muted)}
+.note{color:var(--muted);font-size:.95rem;margin:.5rem 0 0}
+
+/* Sections */
+section{padding:3.5rem 0;border-top:1px solid var(--line)}
+section>.wrap>h2{font-size:clamp(1.8rem,4vw,2.6rem);margin-bottom:.75rem}
+section>.wrap>p.intro{max-width:40rem;color:var(--muted);margin:0 0 2rem}
+.topics{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:2rem 3rem}
+.topic{border-left:4px solid var(--blue);padding-left:1rem}
+.topic h3{font-size:1.35rem;margin-bottom:.35rem}
+.topic p{margin:0;max-width:34rem}
+.topic .eg{display:block;margin-top:.4rem;color:var(--muted);font-size:.95rem}
+
+/* Data journey: a real sequence, so it is numbered */
+.journey{list-style:none;counter-reset:s;margin:0;padding:0;display:grid;gap:0;max-width:44rem}
+.journey li{counter-increment:s;display:grid;grid-template-columns:2.5rem 1fr;gap:1rem;padding-bottom:1.5rem;position:relative}
+.journey li::before{content:counter(s);width:2.5rem;height:2.5rem;border-radius:50%;background:var(--blue);color:var(--on-blue);display:grid;place-items:center;font:700 1.1rem var(--font-head);z-index:1}
+.journey li:not(:last-child)::after{content:"";position:absolute;left:1.2rem;top:2.5rem;bottom:0;width:2px;background:var(--line)}
+.journey strong{display:block;font:700 1.15rem var(--font-head)}
+
+/* Glossary */
+details{border-bottom:1px solid var(--line);max-width:44rem}
+summary{cursor:pointer;padding:1rem 0;font:700 1.1rem var(--font-head);list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--blue);font-size:1.4rem;line-height:1}
+details[open] summary::after{content:"\2212"}
+details p{margin:0 0 1rem;color:var(--muted)}
+
+footer{border-top:1px solid var(--line);padding:2rem 0;color:var(--muted);font-size:.95rem}
+
+/* Pages: only the view matching the URL hash (#hardware etc.) is shown */
+.view{display:none}.view.active{display:block}
+nav a[aria-current="page"]{border-color:var(--blue)}
+.page-head{padding:3.5rem 1.25rem 1.5rem}
+.page-head h1{font-size:clamp(2.2rem,6vw,3.75rem);font-weight:800;letter-spacing:-.02em}
+.page-head p{max-width:38rem;color:var(--muted);font-size:1.15rem;margin:1rem 0 0}
+.scroll{overflow-x:auto;margin-bottom:2.5rem}
+table{border-collapse:collapse;width:100%;min-width:34rem;background:var(--surface)}
+th,td{text-align:left;padding:.85rem 1rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:700 1rem var(--font-head);border-bottom:2px solid var(--ink)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(18rem,1fr));gap:2rem 3rem;margin-bottom:3rem}
+.cols h2{font-size:1.6rem;margin-bottom:1rem}
+.cols dt{font:700 1.1rem var(--font-head);margin-top:1rem}
+.cols dd{margin:.15rem 0 0;color:var(--muted)}
+.quiz{max-width:40rem;margin-bottom:4rem}
+.quiz h2{font-size:1.5rem;margin:.25rem 0 1rem}
+.opt{display:block;width:100%;text-align:left;font:inherit;padding:.8rem 1rem;margin:.5rem 0;background:var(--surface);color:var(--ink);border:2px solid var(--line);border-radius:.375rem;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--blue)}
+.opt.right{border-color:var(--blue);border-width:3px}
+.opt.wrong{border-color:var(--amber);border-width:3px}
+.btn{font:700 1rem var(--font-head);padding:.75rem 1.4rem;border:0;border-radius:.375rem;background:var(--blue);color:var(--on-blue);cursor:pointer;margin-top:1rem}
+footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="#top">ICT Explained</a>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#hardware">Hardware</a></li>
+        <li><a href="#networks">Networks</a></li>
+        <li><a href="#security">Security</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="view" id="home">
+  <div class="hero">
+    <div class="wrap">
+      <h1>Everything on your screen is 1s and 0s</h1>
+      <p class="lead">Information and Communication Technology is how we store, process and send data. Start with the smallest piece: type a word and see the bytes behind it.</p>
+      <div class="lab">
+        <label for="txt">Type up to 8 characters</label>
+        <input id="txt" type="text" value="ICT" maxlength="8" autocomplete="off" spellcheck="false">
+        <div class="bytes" id="bytes" aria-live="polite"></div>
+        <p class="note">Each character is stored as one byte: eight bits, each either 1 or 0. Blue cells are 1.</p>
+      </div>
+    </div>
+  </div>
+
+  <section id="topics">
+    <div class="wrap">
+      <h2>The six areas of ICT</h2>
+      <p class="intro">Almost every ICT job or module sits inside one of these areas.</p>
+      <div class="topics">
+        <article class="topic"><h3>Hardware</h3><p>The physical parts of a system: processor, memory, storage, and input and output devices.</p><span class="eg">Examples: CPU, RAM, SSD, keyboard, monitor</span></article>
+        <article class="topic"><h3>Software</h3><p>The programs that tell hardware what to do, from the operating system to everyday apps.</p><span class="eg">Examples: Windows, Linux, web browsers, spreadsheets</span></article>
+        <article class="topic"><h3>Networks</h3><p>Connected devices that share data and resources, in one room or across the world.</p><span class="eg">Examples: LAN, Wi-Fi, routers, the internet</span></article>
+        <article class="topic"><h3>Databases</h3><p>Organised collections of data that can be searched, updated and shared safely.</p><span class="eg">Examples: MySQL, student records, online shop catalogues</span></article>
+        <article class="topic"><h3>Cybersecurity</h3><p>Protecting systems and data from theft, damage and unauthorised access.</p><span class="eg">Examples: strong passwords, firewalls, encryption, backups</span></article>
+        <article class="topic"><h3>Web and cloud</h3><p>Websites and services that run on remote servers and are used through a browser.</p><span class="eg">Examples: HTML, web hosting, cloud storage, online email</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="journey">
+    <div class="wrap">
+      <h2>What happens when you open a website</h2>
+      <p class="intro">Five steps happen in under a second.</p>
+      <ol class="journey">
+        <li><div><strong>Your device sends a request</strong>Your browser asks for a page, such as example.com.</div></li>
+        <li><div><strong>DNS finds the address</strong>The domain name is looked up and turned into an IP address.</div></li>
+        <li><div><strong>The request crosses the network</strong>Your router and internet provider pass the data along, split into small packets.</div></li>
+        <li><div><strong>The server replies</strong>The web server sends back the HTML, CSS and images for the page.</div></li>
+        <li><div><strong>Your browser draws the page</strong>The packets are put back together and displayed on your screen.</div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="glossary">
+    <div class="wrap">
+      <h2>Glossary</h2>
+      <p class="intro">Tap a term to read its meaning.</p>
+      <details><summary>Bit and byte</summary><p>A bit is a single 1 or 0. A byte is eight bits and can store one character, such as the letter A.</p></details>
+      <details><summary>IP address</summary><p>A number that identifies a device on a network, like a postal address for data.</p></details>
+      <details><summary>Router</summary><p>A device that sends data between networks and connects your home or office to the internet.</p></details>
+      <details><summary>Operating system</summary><p>The main software that manages hardware and runs other programs, such as Windows, macOS or Android.</p></details>
+      <details><summary>Encryption</summary><p>Scrambling data so only someone with the correct key can read it.</p></details>
+      <details><summary>Cloud computing</summary><p>Using servers on the internet to store data or run software instead of using only your own computer.</p></details>
+    </div>
+  </section>
+  </div>
+
+  <div class="view" id="hardware">
+    <div class="wrap page-head"><h1>Hardware</h1><p>Hardware is every physical part you can touch. Each part has one clear job.</p></div>
+    <div class="wrap">
+      <div class="scroll"><table>
+        <thead><tr><th>Component</th><th>Job</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td>CPU</td><td>Runs program instructions and does the calculations</td><td>Intel Core i5</td></tr>
+          <tr><td>RAM</td><td>Short-term memory for open programs; emptied when power is off</td><td>16 GB DDR4</td></tr>
+          <tr><td>Storage</td><td>Keeps files and programs permanently</td><td>SSD, hard disk</td></tr>
+          <tr><td>Motherboard</td><td>Connects every part so they can talk to each other</td><td>ATX board</td></tr>
+          <tr><td>GPU</td><td>Draws images and video on the screen</td><td>NVIDIA GeForce</td></tr>
+          <tr><td>Power supply</td><td>Turns wall power into power the parts can use</td><td>500 W PSU</td></tr>
+        </tbody>
+      </table></div>
+      <div class="cols">
+        <div><h2>Input devices</h2><dl><dt>Keyboard</dt><dd>Sends typed characters to the computer.</dd><dt>Mouse</dt><dd>Moves the pointer and sends clicks.</dd><dt>Microphone</dt><dd>Turns sound into digital data.</dd></dl></div>
+        <div><h2>Output devices</h2><dl><dt>Monitor</dt><dd>Shows text, images and video.</dd><dt>Printer</dt><dd>Puts data on paper.</dd><dt>Speakers</dt><dd>Turn digital audio back into sound.</dd></dl></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view" id="networks">
+    <div class="wrap page-head"><h1>Networks</h1><p>A network is two or more devices connected so they can share data. The internet is millions of networks joined together.</p></div>
+    <div class="wrap">
+      <div class="cols">
+        <div><h2>LAN</h2><p>A local area network covers one place, such as a home, school or office. It is fast and usually owned by one person or organisation.</p></div>
+        <div><h2>WAN</h2><p>A wide area network joins networks across cities or countries. The internet is the largest WAN.</p></div>
+      </div>
+      <div class="scroll"><table>
+        <thead><tr><th>Device</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>Router</td><td>Sends data between networks and connects you to the internet</td></tr>
+          <tr><td>Switch</td><td>Connects wired devices inside one network</td></tr>
+          <tr><td>Access point</td><td>Gives devices a Wi-Fi connection</td></tr>
+          <tr><td>Modem</td><td>Converts signals from your internet provider into data your router can use</td></tr>
+          <tr><td>Firewall</td><td>Blocks unwanted traffic and allows trusted traffic</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="view" id="security">
+    <div class="wrap page-head"><h1>Cybersecurity</h1><p>Cybersecurity keeps data private, correct and available. Know the common threats and the habits that stop them.</p></div>
+    <div class="wrap">
+      <div class="cols">
+        <div><h2>Common threats</h2><dl>
+          <dt>Phishing</dt><dd>Fake emails or messages that trick you into giving away passwords or money.</dd>
+          <dt>Malware</dt><dd>Harmful software such as viruses and spyware.</dd>
+          <dt>Ransomware</dt><dd>Malware that locks your files until you pay.</dd>
+          <dt>Brute-force attack</dt><dd>Trying thousands of passwords until one works.</dd>
+        </dl></div>
+        <div><h2>Good defences</h2><dl>
+          <dt>Strong passwords and 2FA</dt><dd>Long, unique passwords plus a second check, such as a phone code.</dd>
+          <dt>Software updates</dt><dd>Updates fix security holes before attackers use them.</dd>
+          <dt>Firewall and antivirus</dt><dd>Block and remove known threats.</dd>
+          <dt>Backups</dt><dd>Keep copies of your files so you can recover from loss or ransomware.</dd>
+        </dl></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="view" id="quiz">
+    <div class="wrap page-head"><h1>Quiz</h1><p>Five questions on what you have read. Pick an answer to see if you are right.</p></div>
+    <div class="wrap"><div class="quiz" id="quizbox" aria-live="polite"></div></div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Made by [Your Name], HND Information Technology</span>
+    <span>ICT module project</span>
+  </div>
+</footer>
+
+<script>
+/* Binary converter: turns typed text into bytes. Uses textContent, so input is never run as HTML. */
+(function(){
+  var input=document.getElementById("txt"), out=document.getElementById("bytes");
+  function draw(){
+    out.textContent="";
+    var bytes=new TextEncoder().encode(input.value.slice(0,8));
+    if(!bytes.length){var p=document.createElement("span");p.className="note";p.textContent="Type something to see its bytes.";out.appendChild(p);return;}
+    bytes.forEach(function(b){
+      var wrap=document.createElement("div");wrap.className="byte";
+      var bits=document.createElement("div");bits.className="bits";
+      b.toString(2).padStart(8,"0").split("").forEach(function(d){
+        var c=document.createElement("span");c.className="bit"+(d==="1"?" on":"");c.textContent=d;bits.appendChild(c);
+      });
+      var ch=document.createElement("span");ch.className="ch";
+      ch.textContent=b>32&&b<127?String.fromCharCode(b)+" = "+b:(b===32?"space = 32":String(b));
+      wrap.appendChild(bits);wrap.appendChild(ch);out.appendChild(wrap);
+    });
+  }
+  input.addEventListener("input",draw);draw();
+})();
+
+/* Page router: shows the view named in the URL hash (#hardware, #quiz ...). Unknown hash = home. */
+(function(){
+  var views=["home","hardware","networks","security","quiz"];
+  var names={home:"ICT Explained: How Computers, Networks and Data Work",hardware:"Hardware | ICT Explained",networks:"Networks | ICT Explained",security:"Cybersecurity | ICT Explained",quiz:"Quiz | ICT Explained"};
+  function route(){
+    var h=location.hash.slice(1);if(views.indexOf(h)<0)h="home";
+    views.forEach(function(v){document.getElementById(v).classList.toggle("active",v===h);});
+    document.querySelectorAll("nav a").forEach(function(a){
+      if(a.getAttribute("href")==="#"+h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
+    });
+    document.title=names[h];window.scrollTo(0,0);
+  }
+  window.addEventListener("hashchange",route);route();
+})();
+
+/* Quiz: edit the questions here. a = index of the correct option (starts at 0). */
+(function(){
+  var Q=[
+    {q:"How many bits are in one byte?",o:["4","8","16"],a:1},
+    {q:"Which part is the computer's short-term memory?",o:["RAM","SSD","CPU"],a:0},
+    {q:"What does DNS do?",o:["Encrypts your data","Turns domain names into IP addresses","Stores web pages"],a:1},
+    {q:"Which device connects your network to the internet?",o:["Monitor","Router","Keyboard"],a:1},
+    {q:"What is phishing?",o:["Tricking people into giving away details","Speeding up a network","Backing up files"],a:0}
+  ];
+  var box=document.getElementById("quizbox"),i=0,score=0;
+  function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x)e.textContent=x;return e;}
+  function show(){
+    box.textContent="";
+    if(i>=Q.length){
+      box.appendChild(el("h2","","You scored "+score+" out of "+Q.length));
+      var r=el("button","btn","Try again");r.onclick=function(){i=0;score=0;show();};box.appendChild(r);return;
+    }
+    box.appendChild(el("p","note","Question "+(i+1)+" of "+Q.length));
+    box.appendChild(el("h2","",Q[i].q));
+    var next=null;
+    Q[i].o.forEach(function(t,k){
+      var b=el("button","opt",t);
+      b.onclick=function(){
+        var all=box.querySelectorAll(".opt");
+        all.forEach(function(x){x.disabled=true;});
+        all[Q[i].a].classList.add("right");
+        if(k===Q[i].a)score++;else b.classList.add("wrong");
+        next=el("button","btn",i<Q.length-1?"Next question":"See your score");
+        next.onclick=function(){i++;show();};box.appendChild(next);next.focus();
+      };
+      box.appendChild(b);
+    });
+  }
+  show();
+})();
+</script>
+</body>
+</html>
